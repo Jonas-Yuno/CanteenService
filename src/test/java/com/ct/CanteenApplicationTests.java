@@ -2,7 +2,7 @@ package com.ct;
 
 
 
-import com.ct.entity.User;
+import com.ct.pojo.User;
 import com.ct.mapper.UserMapper;
 import com.ct.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,9 @@ class CanteenApplicationTests {
     @Test
     public void testSelectByName() {
         System.out.println(("----- selectAll method test ------"));
-        //User user = userService.getUserByEmailAndPassword("admin@qq.com", "123456");
+//        User user = userService.getUserByEmailAndPassword("admin@qq.com", "123456");
+        User user = userService.getUserById(1);
+        System.out.println(user.toString());
 //        List<User> users = userService.getAllUser();
 //        System.out.println(users.toString());
         //Page<Ustdvo> iPage = new Page<Ustdvo>(1, 1);

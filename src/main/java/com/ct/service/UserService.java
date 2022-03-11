@@ -3,7 +3,7 @@ package com.ct.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ct.entity.User;
+import com.ct.pojo.User;
 import com.ct.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,17 +13,28 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
 	@Autowired
-	private UserMapper adminMapper;
+	private UserMapper userMapper;
 
+	//登录
 	public User getUserByEmailAndPassword(String email, String password) {
 		QueryWrapper<User> wrapper = new QueryWrapper<>();
 		wrapper.eq("email", email)
 		.eq("password", password);
-		return adminMapper.selectOne(wrapper);
+		return userMapper.selectOne(wrapper);
+	}
+	
+	//查询全部用户
+	public List<User> getAllUser() {
+		return userMapper.selectAllUser();
+	}
+	
+	//插入
+	public int insertUser(User user){
+		return userMapper.insert(user);
 	}
 
-	public List<User> getAllUser() {
-		return adminMapper.selectAllUser();
+	public User getUserById(Integer id) {
+		return userMapper.selectById(id);
 	}
 
 //	@Override
@@ -39,9 +50,7 @@ public class UserService {
 //		}
 //	}
 
-	public User getUserById(Integer id) {
-		return adminMapper.selectById(id);
-	}
+
 
 //	public User getUserByUser(User ser) {
 //		return adminMapper.get(id);

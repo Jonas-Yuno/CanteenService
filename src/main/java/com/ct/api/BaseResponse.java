@@ -29,6 +29,14 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
+    public BaseResponse() {
+    }
+
+    public BaseResponse setStatusCode(StatusCode statusCode) {
+        this.code = statusCode.getCode();
+        this.msg = statusCode.getMsg();
+        return this;
+    }
     public Integer getCode() {
         return code;
     }

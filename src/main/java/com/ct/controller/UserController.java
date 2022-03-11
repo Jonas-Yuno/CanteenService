@@ -2,7 +2,7 @@ package com.ct.controller;
 
 import com.ct.api.BaseResponse;
 import com.ct.api.StatusCode;
-import com.ct.entity.User;
+import com.ct.pojo.User;
 import com.ct.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //登录
     @PostMapping("/login")
     public BaseResponse login(@RequestBody User user) {
         User user1 = userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
@@ -22,11 +23,36 @@ public class UserController {
         return retMsg;
     }
 
+    //登录
     @GetMapping("/login")
-    public BaseResponse login(@RequestParam("id") int id) {
-        User user1 = userService.getUserById(id);
+    public BaseResponse login(@RequestParam("email") String email, @RequestParam("password") String password) {
+        User user = userService.getUserByEmailAndPassword(email, password);
         BaseResponse retMsg = new BaseResponse(StatusCode.Success);
-        retMsg.setData(user1);
+        retMsg.setData(user);
+        return retMsg;
+    }
+
+    @PostMapping("/register")
+    public BaseResponse Logon(@RequestBody User user){
+        Integer row = userService.insertUser(user);
+        BaseResponse retMsg = new BaseResponse();
+        if (row != 0){
+            retMsg.setStatusCode(StatusCode.Success);
+            retMsg.setData("注册成功");
+            return retMsg;
+        }else {
+            retMsg.setStatusCode(StatusCode.Fail);
+            retMsg.setData("注册失败");
+            return retMsg;
+        }
+    }
+
+    //测试
+    @GetMapping("/loginTest")
+    public BaseResponse login(@RequestParam("id") int id) {
+        User user = userService.getUserById(id);
+        BaseResponse retMsg = new BaseResponse(StatusCode.Success);
+        retMsg.setData(user);
         return retMsg;
     }
 

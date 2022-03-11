@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ct.mapper.UserMapper">
     <!-- 查询所有课程 -->
-    <select id="selectAllUser"  resultType="com.ct.entity.User">
+    <select id="selectAllUser"  resultType="com.ct.pojo.User">
         select * from tb_user where id = 1
     </select>
 
