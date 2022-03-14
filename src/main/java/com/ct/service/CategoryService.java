@@ -16,4 +16,8 @@ public class CategoryService {
     public List<Category> getAllCategory() {
         return categoryMapper.selectList(null);
     }
+
+//    public String getCategoryIdByName(String name) {
+//        return categoryMapper.select(null);
+//    }
 }

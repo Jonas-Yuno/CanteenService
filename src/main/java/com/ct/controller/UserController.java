@@ -18,18 +18,32 @@ public class UserController {
     @PostMapping("/login")
     public BaseResponse login(@RequestBody User user) {
         User user1 = userService.getUserByEmailAndPassword(user.getEmail(), user.getPassword());
-        BaseResponse retMsg = new BaseResponse(StatusCode.Success);
-        retMsg.setData(user1);
-        return retMsg;
+        BaseResponse retMsg = new BaseResponse();
+        if (user1 != null){
+            retMsg.setStatusCode(StatusCode.Success);
+            retMsg.setData(user1);
+            return retMsg;
+        }else {
+            retMsg.setStatusCode(StatusCode.Fail);
+            retMsg.setMsg("账号或密码不正确");
+            return retMsg;
+        }
     }
 
     //登录
     @GetMapping("/login")
     public BaseResponse login(@RequestParam("email") String email, @RequestParam("password") String password) {
         User user = userService.getUserByEmailAndPassword(email, password);
-        BaseResponse retMsg = new BaseResponse(StatusCode.Success);
-        retMsg.setData(user);
-        return retMsg;
+        BaseResponse retMsg = new BaseResponse();
+        if (user != null){
+            retMsg.setStatusCode(StatusCode.Success);
+            retMsg.setData(user);
+            return retMsg;
+        }else {
+            retMsg.setStatusCode(StatusCode.Fail);
+            retMsg.setMsg("账号或密码不正确");
+            return retMsg;
+        }
     }
 
     @PostMapping("/register")
@@ -48,7 +62,7 @@ public class UserController {
     }
 
     //测试
-    @GetMapping("/loginTest")
+    @GetMapping("/ltest")
     public BaseResponse login(@RequestParam("id") int id) {
         User user = userService.getUserById(id);
         BaseResponse retMsg = new BaseResponse(StatusCode.Success);

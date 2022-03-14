@@ -2,26 +2,33 @@ package com.ct;
 
 
 
+
 import com.ct.pojo.User;
 import com.ct.mapper.UserMapper;
+import com.ct.service.GoodsService;
 import com.ct.service.UserService;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class CanteenApplicationTests {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GoodsService goodsService;
 
     @Test
     public void testSelect() {
@@ -29,6 +36,34 @@ class CanteenApplicationTests {
         List<User> userList = userMapper.selectList(null);
         userList.forEach(System.out::println);
     }
+
+    @Test
+    public void testSelectAll() {
+        System.out.println(("----- selectAll method test ------"));
+        User user = new User();
+        List<User> userList = userMapper.selectAllUser();
+        userList.forEach(System.out::println);
+    }
+
+    @Test
+    public void testSelectGoodsByCategoryName(){
+        System.out.println(goodsService.getGoodsByCategoryId(1).toString());
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void testSelectByName() {
