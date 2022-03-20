@@ -35,30 +35,29 @@ public class BaseResponse<T> {
     public BaseResponse() {
     }
 
-    public BaseResponse setStatusCode(StatusCode statusCode) {
+    public void setStatusCode(StatusCode statusCode) {
         this.code = statusCode.getCode();
         this.msg = statusCode.getMsg();
-        return this;
     }
 
-    public static BaseResponse success() {
-        BaseResponse retMsg = new BaseResponse(StatusCode.Success);
+    public static <T> BaseResponse success() {
+        BaseResponse<T> retMsg = new BaseResponse(StatusCode.Success);
         return retMsg;
     }
 
     public static <T> BaseResponse success(T data) {
-        BaseResponse retMsg = new BaseResponse(StatusCode.Success);
+        BaseResponse<T> retMsg = new BaseResponse(StatusCode.Success);
         retMsg.setData(data);
         return retMsg;
     }
 
-    public static <T> BaseResponse fail() {
+    public static BaseResponse fail() {
         BaseResponse retMsg = new BaseResponse(StatusCode.Fail);
         retMsg.setData(null);
         return retMsg;
     }
 
-    public static <T> BaseResponse fail(String message) {
+    public static BaseResponse fail(String message) {
         BaseResponse retMsg = new BaseResponse(StatusCode.Fail);
         retMsg.setMsg(message);
         retMsg.setData(null);

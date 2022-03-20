@@ -20,6 +20,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    //获取全部物品类型
     @GetMapping
     public BaseResponse<List<Category>> getAllCategory(){
         List<Category> categoryList = categoryService.getAllCategory();

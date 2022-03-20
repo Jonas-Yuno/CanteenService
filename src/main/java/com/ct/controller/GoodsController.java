@@ -17,7 +17,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("goods")
+@RequestMapping("goods/")
 public class GoodsController {
 
     @Resource
@@ -34,16 +34,16 @@ public class GoodsController {
         return retMsg;
     }
 
-    @GetMapping("/all")
-    public Page<Goods> getAll(
-            @RequestParam(defaultValue = "1") Integer pageNum,
-            @RequestParam(defaultValue = "10") Integer pageSize,
+    @GetMapping("all")
+    public BaseResponse<Page<Goods>> getAll(
+            @RequestParam(defaultValue = "1") Integer pagenum,
+            @RequestParam(defaultValue = "10") Integer pagesize,
             @RequestParam(defaultValue = "") String search
     ) {
-        Page<Goods> goodsPage = goodsMapper.selectPage(new Page<>(pageNum, pageSize), Wrappers.<Goods>lambdaQuery().like(Goods::getName, search));
-        BaseResponse retMsg = new BaseResponse(StatusCode.Success);
+        Page<Goods> goodsPage = goodsMapper.selectPage(new Page<>(pagenum, pagesize), Wrappers.<Goods>lambdaQuery().like(Goods::getName, search));
+        BaseResponse<Page<Goods>> retMsg = new BaseResponse(StatusCode.Success);
         retMsg.setData(goodsPage);
-        return goodsPage;
+        return retMsg;
     }
 
     //通过类型id获取物品
@@ -55,12 +55,16 @@ public class GoodsController {
         return retMsg;
     }
 
-    //通过类型名称获取物品
-    @GetMapping("cname/{name}")
-    public BaseResponse<List<Goods>> getGoodsByCategoryName(@PathVariable String name) {
-        List<Goods> goodsList = goodsService.getGoodsByCategoryName(name);
+    //通过类型名称分页获取物品
+    @GetMapping("cname")
+    public BaseResponse<Page<Goods>> getGoodsByCategoryName(
+            @RequestParam(name = "pagenum",defaultValue = "1") Integer pagenum,
+            @RequestParam(name = "pagesize",defaultValue = "10") Integer pagesize,
+            @RequestParam(name = "name",defaultValue = "") String name
+    ) {
+        Page<Goods> goods = goodsService.getGoodsByCategoryName(new Page<>(pagenum, pagesize), name);
         BaseResponse retMsg = new BaseResponse(StatusCode.Success);
-        retMsg.setData(goodsList);
+        retMsg.setData(goods);
         return retMsg;
     }
 
