@@ -26,9 +26,9 @@ public class CartController {
         return retMsg;
     }
 
-    @PostMapping("/{userid}")
-    public BaseResponse insertCart(@PathVariable("userid") String userid,@RequestBody Cart cart) {
-        cart.setUserid(userid);//下一步以登录的用户名为准
+    @PostMapping()
+    public BaseResponse insertCart(@RequestBody Cart cart) {
+//        cart.setUserid(userid);//下一步以登录的用户名为准
         this.cartService.insertCart(cart);
         BaseResponse retMsg = new BaseResponse(StatusCode.Success);
         return retMsg;

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ct.mapper.OrdersMapper">
+
+    <resultMap id="orderWithDetails" type="com.ct.pojo.Order">
+        <id property="id" column="id" />
+        <result property="userid" column="userid" />
+        <result property="cdate" column="cdate" />
+        <result property="status" column="status" />
+        <result property="address" column="address" />
+        <result property="phone" column="phone" />
+        <result property="expressid" column="expressid" />
+        <collection property="detailsList" ofType="com.ct.pojo.Order_Details">
+            <id property="orderid" column="orderid" />
+            <id property="goodsid" column="goodsid" />
+            <result property="num" column="num" />
+            <result property="price" column="price" />
+            <association property="goods" javaType="com.ct.pojo.Goods">
+                <id  property="id" column="goodsid" />
+                <result property="name" column="name" />
+                <result property="thumbnail" column="thumbnail" />
+                <result property="content" column="content" />
+                <result property="flag" column="flag" />
+            </association>
+        </collection>
+    </resultMap>
+
+    <!-- 查询所有订单 -->
+    <select id="selectAllOrders"  parameterType="String"  resultMap="orderWithDetails">
+        select t_orders.*,t_orders_details.*,name,thumbnail,content,flag from t_orders,t_orders_details,t_goods where t_orders.id=orderid and goodsid=t_goods.id and userid=#{userid} order by id desc
+    </select>
+
+    <!-- 根据id查询订单 -->
+    <select id="selectOrderById" parameterType="Integer" resultMap="orderWithDetails">
+        select t_orders.*,t_orders_details.*,name,thumbnail,content,flag from t_orders,t_orders_details,t_goods where t_orders.id=orderid and goodsid=t_goods.id and t_orders.id=#{id}
+    </select>
+
+    <!-- 生成一个新的订单 -->
+    <insert id="insertOrder" parameterType="com.ct.pojo.Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_orders (userid,address,phone) values(#{userid},#{address},#{phone})
+    </insert>
+
+    <!-- 将购物车生成新的订单明细 -->
+    <insert id="insertOrderDetails" parameterType="com.ct.pojo.Order" >
+        insert into t_orders_details (orderid,goodsid,num,price)
+        select #{id},goodsid,num,price
+        from t_cart,t_goods where t_goods.id=goodsid and userid=#{userid};
+    </insert>
+
+    <!-- 修改订单状态、单快递单号 -->
+    <update id="updateOrder" parameterType="com.ct.pojo.Order" >
+        update t_orders set status=#{status},expressid=#{expressid} where id=#{id}
+    </update>
+
+</mapper>

@@ -21,5 +21,6 @@ public class Goods implements Serializable {
     private String dangerNum;
     private String number;
     private String place;
+    private Integer flag;
     private String providerId;
 }
