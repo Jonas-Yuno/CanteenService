@@ -19,16 +19,27 @@ public class ConversationController {
     private ConversationService conversationService;
 
     @GetMapping
-    public BaseResponse getAllConversations(){
+    public BaseResponse getAllConversations() {
         List<Conversation> conversationList = conversationService.getAllConversations();
         BaseResponse retMsg = new BaseResponse(StatusCode.Success);
         retMsg.setData(conversationList);
         return retMsg;
     }
 
+    //更新会话最后的聊天信息
+    @PutMapping("/{conversationId}/{message}")
+    public BaseResponse updateLastMessage(@PathVariable("conversationId") String conversationId, @PathVariable("message") String message) {
+        if (conversationService.updateLastMessage(conversationId, message) != 0){
+            return BaseResponse.success();
+        }else {
+            return BaseResponse.fail();
+        }
+
+    }
+
     //新建一个会话
     @PostMapping
-    public BaseResponse insertConversions(@RequestBody Conversation conversation){
+    public BaseResponse insertConversions(@RequestBody Conversation conversation) {
         return conversationService.insertConversion(conversation);
     }
 

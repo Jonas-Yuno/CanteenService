@@ -25,4 +25,8 @@ public class ConversationService {
         conversationMapper.insert(conversation);
         return BaseResponse.success(conversation.getId());
     }
+
+    public Integer updateLastMessage(String conversationId ,String message){
+        return conversationMapper.updateLastMessage(conversationId,message);
+    }
 }
