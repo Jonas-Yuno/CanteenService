@@ -13,6 +13,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     //图片存放的电脑磁盘路径
     private String FILE_PATH = "D:/file/canteenImages/upload/";
 
+
 //    @Override
 //    protected void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(authInterceptor())

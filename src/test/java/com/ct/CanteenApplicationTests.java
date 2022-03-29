@@ -3,11 +3,12 @@ package com.ct;
 
 
 
+
 import com.ct.pojo.User;
 import com.ct.mapper.UserMapper;
+
 import com.ct.service.GoodsService;
 import com.ct.service.UserService;
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,26 @@ class CanteenApplicationTests {
 
     @Autowired
     private GoodsService goodsService;
+
+//    @Autowired
+//    private ChatService chatService;
+//
+//    @Test
+//    void getChat() {
+//        Gson gson = new Gson();
+//        Type typeChats = new TypeToken<List<Chat>>(){}.getType();
+//        chatService.getAllChatById("1","2").toString();
+//    }
+//
+//    @Test
+//    void insertTest1() {
+//        Chat chat = new Chat();
+//        chat.setReceiverId("1");
+//        chat.setMessage("n你好你好你好");
+//        chat.setSendId("2");
+//        chat.setTimeStamp("2022-1-23");
+//        chatService.insertChat(chat);
+//    }
 
     @Test
     public void testSelect() {

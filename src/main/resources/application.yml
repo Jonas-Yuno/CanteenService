@@ -4,7 +4,6 @@ server:
   servlet:
     context-path: /
 
-
 #配置mybatis
 mybatis-plus:
   #配置xml映射路径

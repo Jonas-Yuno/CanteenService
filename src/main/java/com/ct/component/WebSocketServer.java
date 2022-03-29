@@ -5,6 +5,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,6 @@ public class WebSocketServer {
      * 记录当前在线连接数
      */
     public static final Map<String, Session> sessionMap = new ConcurrentHashMap<>();
-
     /**
      * 连接建立成功调用的方法
      */
@@ -83,6 +83,7 @@ public class WebSocketServer {
     @OnMessage
     public void onMessage(String message, Session session, @PathParam("username") String username) {
         log.info("服务端收到用户username={}的消息:{}", username, message);
+        Gson gson = new Gson();
         JSONObject obj = JSONUtil.parseObj(message);
         String toUsername = obj.getStr("to"); // to表示发送给哪个用户，比如 admin
         String text = obj.getStr("text"); // 发送的消息文本  hello
