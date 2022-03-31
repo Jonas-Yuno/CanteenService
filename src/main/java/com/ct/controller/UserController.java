@@ -15,6 +15,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/all")
+    public BaseResponse getAllUser() {
+        return BaseResponse.success(userService.getAllUser());
+    }
+
     //登录
     @PostMapping("/login")
     public BaseResponse login(@RequestBody User user) {
@@ -63,7 +68,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public BaseResponse<User> getUserById(@PathVariable("id") Integer id){
+    public BaseResponse<User> getUserById(@PathVariable("id") Integer id) {
         User user = userService.getUserById(id);
         BaseResponse retMsg = new BaseResponse(StatusCode.Success);
         retMsg.setData(user);
@@ -71,7 +76,7 @@ public class UserController {
     }
 
     //测试
-    @GetMapping("/ltest")
+    @GetMapping("/userid")
     public BaseResponse login(@RequestParam("id") int id) {
         User user = userService.getUserById(id);
         BaseResponse retMsg = new BaseResponse(StatusCode.Success);

@@ -25,7 +25,7 @@ public class UserService {
 	
 	//查询全部用户
 	public List<User> getAllUser() {
-		return userMapper.selectAllUser();
+		return userMapper.selectList(null);
 	}
 	
 	//插入

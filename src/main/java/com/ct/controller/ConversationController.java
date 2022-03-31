@@ -2,7 +2,6 @@ package com.ct.controller;
 
 import com.ct.api.BaseResponse;
 import com.ct.api.StatusCode;
-import com.ct.pojo.Chat;
 import com.ct.pojo.Conversation;
 import com.ct.service.ConversationService;
 import org.springframework.beans.factory.annotation.Autowired;

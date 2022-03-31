@@ -3,7 +3,7 @@
 <mapper namespace="com.ct.mapper.UserMapper">
     <!-- 查询所有课程 -->
     <select id="selectAllUser"  resultType="com.ct.pojo.User">
-        select * from tb_user where id = 1
+        select * from tb_user
     </select>
 
 </mapper>

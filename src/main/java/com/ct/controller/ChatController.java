@@ -31,9 +31,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public BaseResponse insertChat(@RequestBody Chat chat) {
-        chatService.insertChat(chat);
-        BaseResponse retMsg = new BaseResponse(StatusCode.Success);
-        return retMsg;
+    public Integer insertChat(@RequestBody Chat chat) {
+        return chatService.insertChat(chat);
     }
 }

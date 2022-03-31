@@ -50,7 +50,7 @@ public class ChatService {
         }
     }
 
-    public void insertChat(Chat chat) {
+    public Integer insertChat(Chat chat) {
         chatMapper.insert(chat);
     }
 }
